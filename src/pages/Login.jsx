@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ShieldCheck, Loader2, FileDigit, Mail, ArrowRight, Database, Users, Map, FileText, ChevronRight, Fingerprint } from 'lucide-react';
@@ -42,11 +42,19 @@ const Login = () => {
   const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   
+  const location = useLocation();
   const [step, setStep] = useState(1); // 1: Credentials, 2: OTP
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [tempUserId, setTempUserId] = useState(null);
   const [otpCode, setOtpCode] = useState('');
+
+  useEffect(() => {
+    if (location.state?.registered) {
+      setSuccessMsg('Registration submitted successfully! Please wait for DILG approval.');
+    }
+  }, [location]);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(loginSchema)
@@ -219,6 +227,11 @@ const Login = () => {
                             {errorMsg}
                           </div>
                         )}
+                        {successMsg && (
+                          <div className="p-3 bg-green-500/20 border border-green-500/50 text-green-100 text-sm rounded-xl text-center backdrop-blur-sm">
+                            {successMsg}
+                          </div>
+                        )}
                         
                         <div>
                           <label className="block text-sm font-medium text-blue-100/80 mb-1.5 ml-1">Username</label>
@@ -253,6 +266,13 @@ const Login = () => {
                             </>
                           )}
                         </button>
+
+                        <div className="pt-4 text-center">
+                          <p className="text-sm text-blue-200/70">
+                            Barangay Secretary without an account? <br/>
+                            <Link to="/register" className="text-white hover:text-[#3498DB] font-medium transition-colors underline decoration-white/30 underline-offset-4">Register here</Link>
+                          </p>
+                        </div>
                       </motion.form>
                     ) : (
                       <motion.form 

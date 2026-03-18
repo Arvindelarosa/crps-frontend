@@ -25,11 +25,15 @@ export const useAuthStore = create((set, get) => ({
 
   hasRole: (...roles) => roles.includes(get().user?.role),
 
-  canEdit: () => ['super_admin','barangay_admin','encoder'].includes(get().user?.role),
-  canDelete: () => ['super_admin','barangay_admin'].includes(get().user?.role),
+  canEdit:        () => ['super_admin','barangay_admin','encoder'].includes(get().user?.role),
+  canDelete:      () => ['super_admin','barangay_admin'].includes(get().user?.role),
   canManageUsers: () => ['super_admin','barangay_admin'].includes(get().user?.role),
-  canViewReports: () => ['super_admin','barangay_admin','viewer'].includes(get().user?.role),
-  isSuperAdmin: () => get().user?.role === 'super_admin',
+  canViewReports: () => ['super_admin','barangay_admin','lgu_viewer'].includes(get().user?.role),
+  isLguViewer:    () => get().user?.role === 'lgu_viewer',
+  isSuperAdmin:   () => get().user?.role === 'super_admin',
+  isBarangayAdmin:() => get().user?.role === 'barangay_admin',
+  // LGU viewers can see all barangays; barangay roles see only their own
+  canViewAllBarangays: () => ['super_admin','lgu_viewer'].includes(get().user?.role),
 }));
 
 export const useUiStore = create((set) => ({

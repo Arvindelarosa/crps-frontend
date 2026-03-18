@@ -5,6 +5,8 @@ export const authAPI = {
   directLogin: (credentials) => api.post('/auth/login/direct', credentials),
   verifyOtp: (data) => api.post('/auth/verify-otp', data),
   getMe: () => api.get('/auth/me'),
+  register: (data) => api.post('/auth/register', data),
+  getBarangays: () => api.get('/auth/barangays'),
 };
 
 export const residentsAPI = {
@@ -65,4 +67,5 @@ export const syncAPI = {
   getPending: (params) => api.get('/sync/pending', { params }),
   addToQueue: (data) => api.post('/sync/queue', data),
   markSynced: (id) => api.patch(`/sync/${id}/synced`),
+  getAnalytics: () => api.get('/sync/analytics'),
 };

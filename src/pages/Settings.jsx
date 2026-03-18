@@ -130,8 +130,8 @@ const Settings = () => {
                            {u.Barangay ? u.Barangay.barangay_name : 'System-wide'}
                         </td>
                         <td>
-                          <span className={`status-badge ${u.is_active ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}`}>
-                            {u.is_active ? 'ACTIVE' : 'DISABLED'}
+                          <span className={`status-badge ${u.is_active ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-amber-100 text-amber-800 border border-amber-200'}`}>
+                            {u.is_active ? 'ACTIVE' : 'PENDING APPROVAL'}
                           </span>
                         </td>
                         <td className="text-right">
@@ -145,7 +145,7 @@ const Settings = () => {
                                     <button 
                                       className={`p-1.5 border border-transparent rounded transition-colors ${u.is_active ? 'text-orange-600 hover:bg-orange-50 hover:border-orange-200' : 'text-green-600 hover:bg-green-50 hover:border-green-200'}`}
                                       onClick={() => handleToggleActive(u.id, u.is_active)}
-                                      title={u.is_active ? 'Deactivate Account' : 'Reactivate Account'}
+                                      title={u.is_active ? 'Deactivate Account' : 'Approve Account'}
                                     >
                                       {u.is_active ? <PowerOff size={16} /> : <Power size={16} />}
                                     </button>

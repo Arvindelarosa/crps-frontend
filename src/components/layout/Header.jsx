@@ -55,9 +55,16 @@ const Header = () => {
         </button>
         <div className="hidden md:block">
           <h2 className="text-[15px] font-semibold text-gray-800">
-            {user?.Barangay ? `Barangay ${user.Barangay.barangay_name} (${user.Barangay.barangay_code})` : 'System Administration'}
+            {user?.role === 'lgu_viewer'
+              ? 'LGU — All Barangays View (Mamburao)'
+              : user?.Barangay
+                ? `Barangay ${user.Barangay.barangay_name} (${user.Barangay.barangay_code})`
+                : 'DILG System Administrator'
+            }
           </h2>
-          <p className="text-xs text-gray-500 capitalize">{user?.role.replace('_', ' ')} Portal</p>
+          <p className="text-xs text-gray-500 capitalize">
+            {user?.role === 'lgu_viewer' ? '🔒 Read-Only Access' : `${user?.role?.replace(/_/g, ' ')} Portal`}
+          </p>
         </div>
       </div>
 
